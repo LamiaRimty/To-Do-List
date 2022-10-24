@@ -5,10 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📝To-Do list</title>
+
     
 </head>
 <body>
-    <h1>It's a <%= kindOfDay %>! </h1>
+   <% if(nameOfDay === "Saturday" || nameOfDay === "Sunday" ){   %>
+        <h1 style="color: purple" id="weekend"> <%= nameOfDay %> To-Do List</h1>
+ <%   }   else{ %>
+        <h1 style="color: blue" id="weekday"> <%= nameOfDay %> To-Do List</h1>
+  <%    }  %>
 
 </body>
 </html>

@@ -46,7 +46,9 @@ app.get("/",function(req,res){
     }   
 
 
-    res.render("list", { kindOfDay: day});
+    res.render("list", { 
+        nameOfDay: day
+    });
 });
 
 app.listen(3000,function(){
