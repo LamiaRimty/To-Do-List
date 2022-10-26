@@ -3,27 +3,30 @@ const app= express();
 const bodyParser = require("body-parser");
 //const request= require("request");
 
-var items=[  " Grocery shopping","Buy Fruits","Cook Rice", "Curry" ];
+let items=[  " Grocery shopping","Buy Fruits","Cook Rice", "Curry" ];
 
 app.set('view engine', 'ejs');
+
 app.use(bodyParser.urlencoded({ extended:true})); //must write between set& get
+app.use(express.static("public"));
+
 
 app.get("/",function(req,res){
     
-    var options={
+   let options={
         weekday: "long",
         day : "numeric",
         month : "long"
     };
-    var today= new Date();
-    var day = today.toLocaleDateString("en-US",options); //formated date pasted in below   
+    let today= new Date();
+    let day = today.toLocaleDateString("en-US",options); //formated date pasted in below   
 
     res.render("list", { nameOfDay: day,newListItems: items });
 });
 
 
 app.post("/", function(req,res){  //compilation hundler that redirects the user to the home route
- var item = req.body.newItem;
+    let item = req.body.newItem;
  items.push(item);
 res.redirect("/");
 });
