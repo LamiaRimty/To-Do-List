@@ -13,8 +13,8 @@
 </head>
 <body>
  
-    <div class="box">
-        <h1 id="heading"> <%=nameOfDay %> </h1>
+    <div class="box" id="heading">
+        <h1 > <%= listTitle %> </h1>
     </div>
 
    <div class="box">
@@ -27,19 +27,13 @@
       
         <%  } %>
 
-        <div class="box">
-
-        <form class="" action="/" method="post">
+        <form class="item" action="/" method="post">
+             <!-- form class item sothat  can style with other list item -->
 
             <input type="text" name="newItem" placeholder="New Item" autocomplete="off ">
-        
-            <button type="submit" name="button">+</button>
+            <button type="submit" name="list"  value="<%= listTitle %>" >+</button>
+           
         </form>
     </div>
-   </div>
- 
-
-
-
 </body>
 </html>
