@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 
 let items = [" Grocery shopping", "Buy Fruits", "Cook Rice", "Curry"];
 let workItems = [];
+let travelItems=[];
+
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true })); //must write between set& get
@@ -25,6 +27,7 @@ app.get("/", function (req, res) {
 });
 
 
+
 app.post("/", function (req, res) {  //compilation hundler that redirects the user to the home route
 
     let item = req.body.newItem;
@@ -34,6 +37,13 @@ app.post("/", function (req, res) {  //compilation hundler that redirects the us
         res.redirect("/work");
        
     }
+
+    else if(req.body.list === "Travel Bucket List"){
+        travelItems.push(item);
+        res.redirect("/travel");
+    }
+
+
     else {
     
         items.push(item);
@@ -44,16 +54,28 @@ app.post("/", function (req, res) {  //compilation hundler that redirects the us
 
 
 app.get("/work", function (req, res) {
-    console.log(workItems)
     res.render("list", { listTitle: "Work List", newListItems: workItems });
 });
 
 app.post("/work", function (req, res) {
-   
+  
     let item = req.body.newItem;
     workItems.push(item);
     res.redirect("/work");
 });
+
+app.get("/travel", function(req,res){
+  res.render("list",{ listTitle : "Travel Bucket List" , newListItems : travelItems})
+});
+
+app.post("/travel",function(req,res){
+    console.log(req.body);
+    let item=req.body.newItem;
+    travelItems.push(item);
+    res.redirect("/travel");
+});
+
+
 
 app.listen(3000, function () {
     console.log("Server is running on port 3000");
