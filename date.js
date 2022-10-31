@@ -1,5 +1,5 @@
 //jshint esversion:6
-
+console.log(module);
 function getDate(){
 
     let options = {
