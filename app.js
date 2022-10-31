@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const date = require(__dirname+"/date.js");
+console.log(date());
 //const request= require("request");
 
 let items = [" Grocery shopping", "Buy Fruits", "Cook Rice", "Curry"];
@@ -15,7 +17,7 @@ app.use(express.static("public"));
 
 app.get("/", function (req, res) {
 
-
+    let day=date();
     res.render("list", { listTitle: day, newListItems: items });
 });
 

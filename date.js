@@ -1,8 +1,11 @@
 //jshint esversion:6
-console.log(module);
-function getDate(){
 
-    let options = {
+//object is basically something that gives you a reference to the object that represents the current module.
+//means inside this modules here is date .js we've access to this thing called module
+    
+module.exports=getDate;
+function getDate(){
+    let options = {      
         weekday: "long",
         day: "numeric",
         month: "long"
