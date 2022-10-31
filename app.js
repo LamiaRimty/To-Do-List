@@ -15,13 +15,6 @@ app.use(express.static("public"));
 
 app.get("/", function (req, res) {
 
-    let options = {
-        weekday: "long",
-        day: "numeric",
-        month: "long"
-    };
-    let today = new Date();
-    let day = today.toLocaleDateString("en-US", options); //formated date pasted in below   
 
     res.render("list", { listTitle: day, newListItems: items });
 });
@@ -75,7 +68,15 @@ app.post("/travel",function(req,res){
     res.redirect("/travel");
 });
 
+app.get("/about",function(req,res){
+    //console.log("1");
+    res.render("about");
+});
 
+app.post("/about",function(req,res){
+    //console.log("2");
+    res.redirect("/about");
+});
 
 app.listen(3000, function () {
     console.log("Server is running on port 3000");
