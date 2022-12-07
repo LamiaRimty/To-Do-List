@@ -32,24 +32,29 @@ const itemsSchema= mongoose.Schema({
  
  const defaultItems=[ item1,item2,item3];
 
-Item.insertMany( defaultItems,function(error){
-    //deal with error or log success.
-    if(error){
-        console.log(error);
-    }
-    else
-    {
-        console.log("Successfully saved all deafult items to DB");
-    }
-});
-
-
 
 app.get("/", function (req, res) {
 
     Item.find({},function(error,foundItems){ //{conditons} should be empty it will find us everything inside items collections 
         //use the found results docs.
+       if(foundItems.length=== 0){
+                Item.insertMany( defaultItems,function(error){
+            //deal with error or log success.
+            if(error){
+                console.log(error);
+            }
+            else{
+                console.log("Successfully saved all deafult items to DB");
+            }
+             });
+
+             res.redirect("/");
+           }
+
+       else{
         res.render("list", { listTitle: "Today", newListItems: foundItems });
+       }
+        
     })
    
 });
