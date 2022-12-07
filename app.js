@@ -20,7 +20,7 @@ const itemsSchema= mongoose.Schema({
    const Item = mongoose.model("Item",itemsSchema); //singular  collection name
    const item1 = new Item({
     name:"Welcome to your TO-Do-List!"
-  });
+    });
 
   const item2 = new Item({
    name:"Hit the + button to add a new item"
@@ -31,6 +31,19 @@ const itemsSchema= mongoose.Schema({
  });
  
  const defaultItems=[ item1,item2,item3];
+
+Item.insertMany( defaultItems,function(error){
+    //deal with error or log success.
+    if(error){
+        console.log(error);
+    }
+
+    else
+    {
+        console.log("Successfully saved all deafult items to DB");
+    }
+});
+
 
 app.get("/", function (req, res) {
 
