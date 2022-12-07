@@ -1,13 +1,9 @@
 const express = require("express");
 const app = express();  //creates my App using espress
 const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/to-do-listDB');
 const date = require(__dirname+"/date.js");
-
-//const request= require("request");
-
-const items = [" Grocery shopping", "Buy Fruits", "Cook Rice", "Curry"];
-const workItems = [];
-const travelItems=[];
 
 app.set('view engine', 'ejs');  //set the view engine using ejs
 
@@ -15,11 +11,30 @@ app.use(bodyParser.urlencoded({ extended: true })); //must write between set& ge
 app.use(express.static("public"));   //tell express that my static files are held inside public folder
 
 
+const itemsSchema= mongoose.Schema({
+    name: String
+   }); 
+   
+   //Schema model
+   
+   const Item = mongoose.model("Item",itemsSchema); //singular  collection name
+   const item1 = new Item({
+     name:"Welcome to your TO-Do-List!"
+   });
+
+   const item2 = new Item({
+    name:"Hit the + button to add a new item"
+  });
+
+  const item3 = new Item({
+    name:"<-- Hit this to delete an item."
+  });
+  
+  const defaultItems=[ item1,item2,item3];
+
 app.get("/", function (req, res) {
 
-    //let day=date.getDay();
-    let day=date.getDate();
-    res.render("list", { listTitle: day, newListItems: items });
+    res.render("list", { listTitle: "Today", newListItems: items });
 });
 
 
