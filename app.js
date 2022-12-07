@@ -37,7 +37,6 @@ Item.insertMany( defaultItems,function(error){
     if(error){
         console.log(error);
     }
-
     else
     {
         console.log("Successfully saved all deafult items to DB");
@@ -45,10 +44,16 @@ Item.insertMany( defaultItems,function(error){
 });
 
 
+
 app.get("/", function (req, res) {
 
-    res.render("list", { listTitle: "Today", newListItems: items });
+    Item.find({},function(error,foundItems){ //{conditons} should be empty it will find us everything inside items collections 
+        //use the found results docs.
+        res.render("list", { listTitle: "Today", newListItems: foundItems });
+    })
+   
 });
+
 
 
 
