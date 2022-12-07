@@ -1,5 +1,5 @@
 const express = require("express");
-const app = express();
+const app = express();  //creates my App using espress
 const bodyParser = require("body-parser");
 const date = require(__dirname+"/date.js");
 
@@ -9,15 +9,15 @@ const items = [" Grocery shopping", "Buy Fruits", "Cook Rice", "Curry"];
 const workItems = [];
 const travelItems=[];
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');  //set the view engine using ejs
 
 app.use(bodyParser.urlencoded({ extended: true })); //must write between set& get
-app.use(express.static("public"));
+app.use(express.static("public"));   //tell express that my static files are held inside public folder
 
 
 app.get("/", function (req, res) {
 
-    //let day=date.getDate();
+    //let day=date.getDay();
     let day=date.getDate();
     res.render("list", { listTitle: day, newListItems: items });
 });
@@ -81,6 +81,8 @@ app.post("/about",function(req,res){
     res.redirect("/about");
 });
 
-app.listen(3000, function () {
+app.listen(3000, function () {  //when server is running 3000,we log it on colnsole that server running on port 3000
     console.log("Server is running on port 3000");
 });
+
+
