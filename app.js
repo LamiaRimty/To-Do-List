@@ -76,6 +76,18 @@ app.post("/", function (req, res) {  //compilation hundler that redirects the us
 
 });
 
+app.post("/delete",function(req,res){
+    const checkedItemId=req.body.checkbox;
+    Item.findByIdAndRemove(checkedItemId,function(error){
+        //handle any error or log success
+        if(!error){
+            console.log("Successfully deleted the checked item.");
+            res.redirect("/");
+        }
+    });
+    
+});
+
 
 app.get("/work", function (req, res) {
     res.render("list", { listTitle: "Work List", newListItems: workItems });
@@ -109,7 +121,7 @@ app.post("/about",function(req,res){
     res.redirect("/about");
 });
 
-app.listen(3000, function () {  //when server is running 3000,we log it on colnsole that server running on port 3000
+app.listen(3000, function() {  //when server is running 3000,we log it on colnsole that server running on port 3000
     console.log("Server is running on port 3000");
 });
 
