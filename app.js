@@ -94,12 +94,23 @@ app.post("/", function (req, res) {  //compilation hundler that redirects the us
        
      //singular  collection name
     const itemName = req.body.newItem;
+    const listName =req.body.list;
   
     const item = new Item({  //new document
         name:itemName
       });
-    item.save();
-    res.redirect("/");
+      if(listName==="Today"){
+        item.save();
+        res.redirect("/");
+      }
+
+        else{
+            List.findOne({ name:listName },function(error,foundList){
+                foundList.items.push(item);
+                foundList.save();
+                res.redirect("/"+listName);
+            });
+        }
 
 });
 
