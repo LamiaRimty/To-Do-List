@@ -70,10 +70,23 @@ app.get("/", function (req, res) {
 app.get("/:customListName",function(req,res){
     const customListName = req.params.customListName;
 
-    const list = new List({
-        name: customListName,
-        items: defaultItems
-    });
+    List.findOne({ name: customListName}, function(error,foundList){
+        if(!error){
+           if(!foundList){
+           //Create a new list
+           const list = new List({
+            name: customListName,
+            items: defaultItems
+        });
+        list.save();
+        res.redirect("/" + customListName);
+           }
+           else{
+            //show an existed list
+            res.render("list",{ listTitle:foundList.name , newListItems: foundList.items });
+           }
+        }
+    });  
 });
 
 app.post("/", function (req, res) {  //compilation hundler that redirects the user to the home route
