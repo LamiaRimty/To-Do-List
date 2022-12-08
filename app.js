@@ -31,6 +31,13 @@ const itemsSchema= mongoose.Schema({
  });
  
  const defaultItems=[ item1,item2,item3];
+ 
+ const listSchema ={
+    name: String,
+    items:[itemsSchema]
+ }
+
+ const List = mongoose.model("List",listSchema);
 
 
 app.get("/", function (req, res) {
@@ -60,7 +67,14 @@ app.get("/", function (req, res) {
 });
 
 
+app.get("/:customListName",function(req,res){
+    const customListName = req.params.customListName;
 
+    const list = new List({
+        name: customListName,
+        items: defaultItems
+    });
+});
 
 app.post("/", function (req, res) {  //compilation hundler that redirects the user to the home route
 
@@ -89,27 +103,8 @@ app.post("/delete",function(req,res){
 });
 
 
-app.get("/work", function (req, res) {
-    res.render("list", { listTitle: "Work List", newListItems: workItems });
-});
 
-app.post("/work", function (req, res) {
-  
-    let item = req.body.newItem;
-    workItems.push(item);
-    res.redirect("/work");
-});
 
-app.get("/travel", function(req,res){
-  res.render("list",{ listTitle : "Travel Bucket List" , newListItems : travelItems})
-});
-
-app.post("/travel",function(req,res){
-    console.log(req.body);
-    let item=req.body.newItem;
-    travelItems.push(item);
-    res.redirect("/travel");
-});
 
 app.get("/about",function(req,res){
     //console.log("1");
