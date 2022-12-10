@@ -127,37 +127,25 @@ app.post("/", function (req, res) {  //compilation hundler that redirects the us
 
 app.post("/delete",function(req,res){
     const checkedItemId=req.body.checkbox;
-    //const listName = req.body.listName;
+    const listName = req.body.listName;
 
-    //if(listName==="Today"){
-
-        Item.findByIdAndRemove(checkedItemId,function(error){
-            //handle any error or log success
-            if(!error){
-                console.log("Successfully deleted the checked item.");
-                res.redirect("/");
-            }
-        });
-   // }
-
-    // else{
-    //     List.findOneAndUpdate(
-    //         { name:listName },
-    //         { $pull: { items:{ _id:checkedItemId }}},
-    //         function(error,foundList){
-    //             if(!error){
-    //                 res.redirect("/"+listName);
-    //             }
-    //         }
-    //     );
-    // }
-
-    
+        if(listName=== "Today"){
+            Item.findByIdAndRemove(checkedItemId,function(error){
+                //handle any error or log success
+                if(!error){
+                    console.log("Successfully deleted the checked item.");
+                    res.redirect("/");
+                }
+            });
+        }
+        else{
+            List.findOneAndUpdate({ name: listName},{ $pull:{ items: { _id: checkedItemId} } },function(error,foundList){
+                if(!error){
+                    res.redirect("/"+listName);
+                }
+            });
+        }   
 });
-
-
-
-
 
 app.get("/about",function(req,res){
     //console.log("1");
