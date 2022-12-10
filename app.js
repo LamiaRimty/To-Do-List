@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();  //creates my App using espress
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
+const _ = require("lodash");
+
 mongoose.connect('mongodb://localhost:27017/to-do-listDB');
 const date = require(__dirname+"/date.js");
 
@@ -68,7 +70,7 @@ app.get("/", function (req, res) {
 
 
 app.get("/:customListName",function(req,res){
-    const customListName = req.params.customListName;
+    const customListName = _.capitalize([req.params.customListName]);
 
     List.findOne({ name: customListName}, function(error,foundList){
         if(!error){
