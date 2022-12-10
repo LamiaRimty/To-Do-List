@@ -103,26 +103,55 @@ app.post("/", function (req, res) {  //compilation hundler that redirects the us
         item.save();
         res.redirect("/");
       }
+      else{
+        List.findOne({name:listName},function(error,foundList){
+            foundList.items.push(item);
+            foundList.save();
+            res.redirect("/"+listName);
+        });
+      }
+    //   if(listName==="Today"){
+    //     item.save();
+    //     res.redirect("/");
+    //   }
 
-        else{
-            List.findOne({ name:listName },function(error,foundList){
-                foundList.items.push(item);
-                foundList.save();
-                res.redirect("/"+listName);
-            });
-        }
+        // else{
+        //     List.findOne({ name:listName },function(error,foundList){
+        //         foundList.items.push(item);
+        //         foundList.save();
+        //         res.redirect("/"+listName);
+        //     });
+        // }
 
 });
 
 app.post("/delete",function(req,res){
     const checkedItemId=req.body.checkbox;
-    Item.findByIdAndRemove(checkedItemId,function(error){
-        //handle any error or log success
-        if(!error){
-            console.log("Successfully deleted the checked item.");
-            res.redirect("/");
-        }
-    });
+    //const listName = req.body.listName;
+
+    //if(listName==="Today"){
+
+        Item.findByIdAndRemove(checkedItemId,function(error){
+            //handle any error or log success
+            if(!error){
+                console.log("Successfully deleted the checked item.");
+                res.redirect("/");
+            }
+        });
+   // }
+
+    // else{
+    //     List.findOneAndUpdate(
+    //         { name:listName },
+    //         { $pull: { items:{ _id:checkedItemId }}},
+    //         function(error,foundList){
+    //             if(!error){
+    //                 res.redirect("/"+listName);
+    //             }
+    //         }
+    //     );
+    // }
+
     
 });
 
