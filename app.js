@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const _ = require("lodash");
 
-mongoose.connect('mongodb://localhost:27017/to-do-listDB');
+mongoose.connect("mongodb+srv://admin-rimty:14245438todolist@cluster0.xat1gy7.mongodb.net/to-do-listDB");
 const date = require(__dirname+"/date.js");
 
 app.set('view engine', 'ejs');  //set the view engine using ejs
@@ -150,18 +150,13 @@ app.post("/delete",function(req,res){
         }   
 });
 
-app.get("/about",function(req,res){
-    //console.log("1");
-    res.render("about");
-});
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
 
-app.post("/about",function(req,res){
-    //console.log("2");
-    res.redirect("/about");
-});
-
-app.listen(3000, function() {  //when server is running 3000,we log it on colnsole that server running on port 3000
-    console.log("Server is running on port 3000");
+app.listen(port, function() {  //when server is running 3000,we log it on colnsole that server running on port 3000
+    console.log("Server has started successfully on port 3000");
 });
 
 
